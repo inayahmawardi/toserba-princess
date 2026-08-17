@@ -30,18 +30,27 @@ const products=[
 {id:31,name:'Minyak Kita 1L',category:'Sembako',price:23000,unit:'Liter',emoji:'🫗'},
 {id:32,name:'Beras',category:'Sembako',price:15000,unit:'Liter',emoji:'🍚'}
 ];
-let selectedCategory='Semua';let cart=[];
+let selectedCategory='Semua';let cart=[];let authMode='login';
 const rupiah=n=>'Rp'+n.toLocaleString('id-ID');
 function renderCategories(){const cats=['Semua',...new Set(products.map(p=>p.category))];document.getElementById('categories').innerHTML=cats.map(c=>`<button class="category ${selectedCategory===c?'active':''}" onclick="selectCategory('${c}')">${c}</button>`).join('')}
 function selectCategory(c){selectedCategory=c;renderCategories();renderProducts()}
 function renderProducts(){const q=(document.getElementById('searchInput')?.value||'').toLowerCase();const list=products.filter(p=>(selectedCategory==='Semua'||p.category===selectedCategory)&&p.name.toLowerCase().includes(q));document.getElementById('productGrid').innerHTML=list.map(p=>`<article class="product-card"><div class="product-image">${p.emoji}</div><div class="product-info"><small>${p.category} · ${p.unit}</small><h3>${p.name}</h3><strong>${rupiah(p.price)}</strong><button class="add-btn" onclick="addToCart(${p.id})">+ Keranjang</button></div></article>`).join('')||'<p>Produk tidak ditemukan.</p>'}
-function addToCart(id){const p=products.find(x=>x.id===id);const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});updateCart();toast(`${p.name} ditambahkan ke keranjang`)}
-function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCart()}
+function addToCart(id){const p=products.find(x=>x.id===id);const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});updateCart();saveCart();toast(`${p.name} ditambahkan ke keranjang`)}
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCart();saveCart()}
 function updateCart(){document.getElementById('cartCount').textContent=cart.reduce((a,b)=>a+b.qty,0);document.getElementById('cartItems').innerHTML=cart.length?cart.map(x=>`<div class="cart-row"><div><strong>${x.name}</strong><br><small>${x.qty} × ${rupiah(x.price)}</small></div><button onclick="removeFromCart(${x.id})">Hapus</button></div>`).join(''):'<p>Keranjang masih kosong.</p>';document.getElementById('cartTotal').textContent=rupiah(cart.reduce((a,b)=>a+b.price*b.qty,0))}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('show');updateCart()}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
-function checkout(){if(!cart.length)return toast('Keranjang masih kosong');toast('Checkout WhatsApp akan kita aktifkan setelah nomor toko diisi.')}
+function checkout(){if(!cart.length)return toast('Keranjang masih kosong');if(!window.firebaseAuth?.currentUser)return openAuth('checkout');toast('Checkout siap. Nomor WhatsApp toko tinggal ditambahkan.')}
 function showLaundryInfo(){alert('Cara Self Laundry:\n1. Pilih mesin yang tersedia.\n2. Masukkan pakaian sesuai kapasitas.\n3. Pilih program cuci.\n4. Lakukan pembayaran sesuai layanan.\n5. Pantau waktu hingga proses selesai.\n\nStatus mesin real-time akan dikembangkan pada tahap berikutnya.')}
 function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function openAuth(){document.getElementById('authModal').classList.add('show');document.getElementById('authEmail').focus()}
+function closeAuth(){document.getElementById('authModal').classList.remove('show')}
+function toggleAuthMode(){authMode=authMode==='login'?'register':'login';document.getElementById('authTitle').textContent=authMode==='login'?'Masuk ke TOSERBA Princess':'Buat Akun TOSERBA Princess';document.getElementById('authSubtitle').textContent=authMode==='login'?'Masuk untuk menyimpan keranjangmu.':'Daftar dengan email dan password.';document.getElementById('authSubmit').textContent=authMode==='login'?'Masuk':'Daftar';document.getElementById('authSwitch').textContent=authMode==='login'?'Belum punya akun? Daftar':'Sudah punya akun? Masuk'}
+async function submitAuth(){const email=document.getElementById('authEmail').value.trim();const password=document.getElementById('authPassword').value;if(!email||password.length<6)return toast('Isi email dan password minimal 6 karakter.');try{if(authMode==='login'){await firebaseAuth.signInWithEmailAndPassword(email,password)}else{await firebaseAuth.createUserWithEmailAndPassword(email,password)}closeAuth();toast(authMode==='login'?'Berhasil masuk.':'Akun berhasil dibuat.')}catch(e){const msg=e.code==='auth/invalid-credential'?'Email atau password salah.':e.code==='auth/email-already-in-use'?'Email sudah terdaftar.':e.code==='auth/weak-password'?'Password minimal 6 karakter.':e.message;toast(msg)}}
+async function logout(){await firebaseAuth.signOut();cart=[];localStorage.removeItem('toserba-cart');updateCart();toast('Berhasil keluar.')}
+async function loadCart(){const user=firebaseAuth.currentUser;if(!user){try{cart=JSON.parse(localStorage.getItem('toserba-cart')||'[]')}catch{cart=[]}return}try{const snap=await firebaseDb.ref(`carts/${user.uid}`).once('value');cart=snap.val()||[];localStorage.removeItem('toserba-cart')}catch{try{cart=JSON.parse(localStorage.getItem('toserba-cart')||'[]')}catch{cart=[]}}}
+async function saveCart(){const user=firebaseAuth.currentUser;try{if(user){await firebaseDb.ref(`carts/${user.uid}`).set(cart)}else localStorage.setItem('toserba-cart',JSON.stringify(cart))}catch{localStorage.setItem('toserba-cart',JSON.stringify(cart))}}
+function updateAccountButton(user){const b=document.getElementById('accountButton');if(user){const email=user.email||'Akun';b.textContent='👤 '+email.split('@')[0];b.title='Klik untuk keluar';b.onclick=logout}else{b.textContent='👤 Masuk';b.title='Masuk atau daftar';b.onclick=openAuth}}
+if(window.firebaseAuth){firebaseAuth.onAuthStateChanged(async user=>{updateAccountButton(user);await loadCart();updateCart()})}
 renderCategories();renderProducts();updateCart();
