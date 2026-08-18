@@ -37,12 +37,12 @@ function setView(loggedIn, user) {
 }
 
 async function checkAdminRole(user) {
-  const firebaseAuth = window.firebaseAuth;
+  const auth = window.firebaseAuth;
   const firebaseDb = window.firebaseDb;
-  if (!user || !firebaseAuth || !firebaseDb) return false;
+  if (!user || !auth || !firebaseDb) return false;
   try {
     await user.reload();
-    const current = firebaseAuth.currentUser;
+    const current = auth.currentUser;
     if (!current || !current.emailVerified) return false;
     const snap = await firebaseDb.ref('users/' + current.uid + '/role').once('value');
     return snap.val() === 'admin';
@@ -53,27 +53,27 @@ async function checkAdminRole(user) {
 }
 
 window.adminLogin = async function adminLogin() {
-  const firebaseAuth = window.firebaseAuth;
+  const auth = window.firebaseAuth;
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   if (!email || !password) return msg('Isi email dan password.');
   msg('Memproses login...');
   try {
-    if (!firebaseAuth) return msg('Firebase Auth belum siap. Refresh halaman terlebih dahulu.');
-    const credential = await firebaseAuth.signInWithEmailAndPassword(email, password);
+    if (!auth) return msg('Firebase Auth belum siap. Refresh halaman terlebih dahulu.');
+    const credential = await auth.signInWithEmailAndPassword(email, password);
     const currentUser = credential.user;
     await currentUser.reload();
     if (!currentUser.emailVerified) {
-      await firebaseAuth.signOut();
+      await auth.signOut();
       return msg('Email akun ini belum diverifikasi. Cek email verifikasi terlebih dahulu.');
     }
     const isAdmin = await checkAdminRole(currentUser);
     if (!isAdmin) {
-      await firebaseAuth.signOut();
+      await auth.signOut();
       return msg('Akun ini bukan admin. Akses admin ditolak.');
     }
     msg('');
-    setView(true, firebaseAuth.currentUser);
+    setView(true, auth.currentUser);
   } catch (e) {
     console.error(e);
     msg(e.code === 'auth/invalid-credential' ? 'Email atau password salah.' : (e.message || 'Login gagal.'));
@@ -87,8 +87,8 @@ function msg(text) {
 }
 
 window.adminLogout = async function adminLogout() {
-  const firebaseAuth = window.firebaseAuth;
-  if (firebaseAuth) await firebaseAuth.signOut();
+  const auth = window.firebaseAuth;
+  if (auth) await auth.signOut();
   setView(false);
 };
 
@@ -115,9 +115,9 @@ window.addProduct = function addProduct() {
 
 setView(false);
 
-const firebaseAuth = window.firebaseAuth;
-if (firebaseAuth) {
-  firebaseAuth.onAuthStateChanged(async user => {
+const authInstance = window.firebaseAuth;
+if (authInstance) {
+  authInstance.onAuthStateChanged(async user => {
     if (roleCheckInProgress) return;
     if (!user) {
       setView(false);
@@ -125,12 +125,12 @@ if (firebaseAuth) {
     }
     roleCheckInProgress = true;
     const isAdmin = await checkAdminRole(user);
-    const currentUser = firebaseAuth.currentUser;
+    const currentUser = authInstance.currentUser;
     roleCheckInProgress = false;
     if (isAdmin && currentUser) {
       setView(true, currentUser);
     } else {
-      await firebaseAuth.signOut();
+      await authInstance.signOut();
       setView(false);
       msg(user.emailVerified === false ? 'Email akun ini belum diverifikasi.' : 'Akun ini bukan admin. Akses admin ditolak.');
     }
