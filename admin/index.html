@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — TOSERBA Princess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div id="loginView" class="login-view">
+    <div class="login-card">
+      <div class="crown">♛</div>
+      <span class="eyebrow">TOSERBA PRINCESS</span>
+      <h1>Admin Panel</h1>
+      <p>Masuk untuk mengelola toko dan layanan Self Laundry.</p>
+      <input id="email" type="email" placeholder="Email admin" autocomplete="email">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="primary" onclick="adminLogin()">Masuk sebagai Admin</button>
+      <a href="../">← Kembali ke website pembeli</a>
+      <small id="loginMessage"></small>
+    </div>
+  </div>
+
+  <div id="adminView" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><span>♛</span><div><b>TOSERBA</b><strong>PRINCESS</strong></div></div>
+      <div class="admin-label">ADMIN PANEL</div>
+      <nav>
+        <button class="nav-item active" onclick="showSection('dashboard',this)">📊 Dashboard</button>
+        <button class="nav-item" onclick="showSection('products',this)">🛍️ Produk</button>
+        <button class="nav-item" onclick="showSection('orders',this)">🧾 Pesanan</button>
+        <button class="nav-item" onclick="showSection('users',this)">👥 Pengguna</button>
+        <button class="nav-item" onclick="showSection('laundry',this)">🧺 Self Laundry</button>
+      </nav>
+      <button class="logout" onclick="adminLogout()">↪ Keluar</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div><span class="eyebrow">ADMINISTRATOR</span><h2 id="pageTitle">Dashboard</h2></div><div class="profile">👤 <span id="adminEmail">Admin</span></div></header>
+
+      <section id="dashboard" class="section active-section">
+        <div class="cards">
+          <div class="stat"><span>Produk</span><strong id="productCount">0</strong><small>katalog saat ini</small></div>
+          <div class="stat"><span>Pesanan</span><strong id="orderCount">0</strong><small>tersimpan di database</small></div>
+          <div class="stat"><span>Pengguna</span><strong id="userCount">0</strong><small>akun pelanggan</small></div>
+          <div class="stat"><span>Mesin Laundry</span><strong>4</strong><small>unit terdaftar</small></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><span class="eyebrow">RINGKASAN</span><h3>Selamat datang di Admin Panel</h3></div></div><p>Halaman ini dipisahkan dari website pembeli. Dari sini nanti produk, pesanan, pengguna, dan status mesin laundry bisa dikelola.</p></div>
+      </section>
+
+      <section id="products" class="section">
+        <div class="panel"><div class="panel-head"><div><span class="eyebrow">TOKO</span><h3>Kelola Produk</h3></div><button class="primary small-btn" onclick="addProduct()">+ Tambah Produk</button></div><div id="productList" class="product-list"></div></div>
+      </section>
+
+      <section id="orders" class="section">
+        <div class="panel"><div class="panel-head"><div><span class="eyebrow">TRANSAKSI</span><h3>Pesanan</h3></div></div><div id="orderList" class="empty">Belum ada pesanan yang tersimpan.</div></div>
+      </section>
+
+      <section id="users" class="section">
+        <div class="panel"><div class="panel-head"><div><span class="eyebrow">PELANGGAN</span><h3>Pengguna</h3></div></div><div id="userList" class="empty">Daftar pengguna Firebase akan ditampilkan setelah data tersedia.</div></div>
+      </section>
+
+      <section id="laundry" class="section">
+        <div class="panel"><div class="panel-head"><div><span class="eyebrow">SELF LAUNDRY</span><h3>Status Mesin</h3></div></div><div class="machine-grid"><div class="machine available">🧺<b>Mesin 01</b><span>Tersedia</span></div><div class="machine available">🧺<b>Mesin 02</b><span>Tersedia</span></div><div class="machine busy">🧺<b>Mesin 03</b><span>Digunakan</span></div><div class="machine available">🧺<b>Mesin 04</b><span>Tersedia</span></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig={apiKey:"AIzaSyB5-XUG2Mq6cD7YtgoHBtPewx3V-KUtzE4",authDomain:"toserba-princess.firebaseapp.com",databaseURL:"https://toserba-princess-default-rtdb.firebaseio.com",projectId:"toserba-princess",storageBucket:"toserba-princess.firebasestorage.app",messagingSenderId:"301864881702",appId:"1:301864881702:web:8ab7e141f00741bd5920e7",measurementId:"G-RM9NLHDCBW"};
+    firebase.initializeApp(firebaseConfig);
+    window.firebaseAuth=firebase.auth();
+    window.firebaseDb=firebase.database();
+  </script>
+  <script src="admin.js"></script>
+</body>
+</html>
