@@ -1,97 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="TOSERBA Princess - kebutuhan sehari-hari dan Self Laundry dalam satu tempat." />
-  <title>TOSERBA Princess</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="description" content="TOSERBA Princess - kebutuhan sehari-hari dan Self Laundry dalam satu tempat."/><title>TOSERBA Princess</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
 <body>
-  <header class="header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#home" aria-label="TOSERBA Princess">
-        <span class="brand-crown">♛</span>
-        <span><strong>TOSERBA</strong><b>PRINCESS</b></span>
-      </a>
-      <nav class="nav" id="nav">
-        <a href="#home">Beranda</a>
-        <a href="#shop">Toserba</a>
-        <a href="#laundry">Self Laundry</a>
-        <a href="#about">Tentang Kami</a>
-        <a href="#contact">Kontak</a>
-      </nav>
-      <button class="account-button" id="accountButton" onclick="openAuth()">👤 Masuk</button>
-      <button class="cart-button" onclick="openCart()">🛒 <span id="cartCount">0</span></button>
-      <button class="menu-button" onclick="toggleMenu()">☰</button>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">👑 TOSERBA PRINCESS</span>
-          <h1>Semua Kebutuhan,<br><span>Dalam Satu Tempat.</span></h1>
-          <p>Kebutuhan sehari-hari, makanan, minuman, dan Self Laundry praktis untuk Anda dan keluarga.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#shop">🛒 Belanja Sekarang</a>
-            <a class="btn btn-outline" href="#laundry">🧺 Self Laundry</a>
-          </div>
-          <div class="trust-row"><span>✓ Harga terjangkau</span><span>✓ Praktis</span><span>✓ Dekat dengan Anda</span></div>
-        </div>
-        <div class="hero-art">
-          <div class="glow"></div><div class="basket">🛍️</div><div class="product-float p1">☕</div><div class="product-float p2">🥤</div><div class="product-float p3">🍜</div><div class="washer">🧺</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="services section">
-      <div class="container">
-        <div class="section-head center"><span class="eyebrow">LAYANAN KAMI</span><h2>Praktis untuk kebutuhan sehari-hari</h2></div>
-        <div class="service-grid">
-          <a class="service-card purple" href="#shop"><div class="service-icon">🛒</div><div><h3>Toserba</h3><p>Belanja kebutuhan sehari-hari dengan mudah.</p><span>Lihat Produk →</span></div></a>
-          <a class="service-card pink" href="#laundry"><div class="service-icon">🧺</div><div><h3>Self Laundry</h3><p>Cuci sendiri dengan mudah, praktis, dan hemat.</p><span>Lihat Layanan →</span></div></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="shop section" id="shop">
-      <div class="container">
-        <div class="section-head"><div><span class="eyebrow">TOKO ONLINE</span><h2>Belanja kebutuhanmu</h2></div><div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Cari produk..." oninput="renderProducts()"></div></div>
-        <div class="categories" id="categories"></div><div class="product-grid" id="productGrid"></div>
-      </div>
-    </section>
-
-    <section class="laundry section" id="laundry">
-      <div class="container"><div class="laundry-panel"><div class="laundry-copy"><span class="eyebrow">SELF LAUNDRY</span><h2>Cuci sendiri,<br><span>lebih praktis.</span></h2><p>Pantau ketersediaan mesin dan waktu penggunaan. Fitur timer real-time dapat dikembangkan pada tahap berikutnya.</p><div class="laundry-price"><span>Mulai dari</span><strong>Rp5.000</strong></div><button class="btn btn-primary" onclick="showLaundryInfo()">Lihat Cara Penggunaan</button></div><div class="machines"><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 01</strong><span>● Tersedia</span></div><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 02</strong><span>● Tersedia</span></div><div class="machine-card busy"><div class="machine-icon">🧺</div><strong>Mesin 03</strong><span>● Digunakan</span><b>24:35</b></div><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 04</strong><span>● Tersedia</span></div></div></div></div>
-    </section>
-
-    <section class="about section" id="about">
-      <div class="container about-grid"><div class="about-image"><span>👑</span><strong>TOSERBA<br><b>PRINCESS</b></strong></div><div><span class="eyebrow">TENTANG KAMI</span><h2>Kebutuhan dekat,<br><span>hidup lebih praktis.</span></h2><p>TOSERBA Princess hadir untuk memenuhi berbagai kebutuhan sehari-hari masyarakat sekitar. Kami menyediakan pilihan produk seperti kopi, mie, minuman, sembako, bahan masakan, dan kebutuhan rumah tangga.</p><p>Selain itu, tersedia layanan <strong>Self Laundry</strong> yang praktis dan mudah digunakan. Ke depannya, layanan digital akan terus dikembangkan agar pelanggan semakin mudah berbelanja dan menggunakan layanan kami.</p><div class="about-points"><span>🛍️ Produk beragam</span><span>💰 Harga terjangkau</span><span>❤️ Pelayanan ramah</span></div></div></div>
-    </section>
-
-    <section class="contact section" id="contact"><div class="container contact-card"><div><span class="eyebrow">KONTAK KAMI</span><h2>Yuk, mampir ke TOSERBA Princess</h2><p>Untuk informasi produk, Self Laundry, atau pemesanan, hubungi kami melalui kontak yang tersedia.</p><div class="contact-list"><span>📍 Alamat toko akan diisi di sini</span><span>📞 Nomor WhatsApp akan diisi di sini</span><span>🕐 Jam buka akan diisi di sini</span></div></div><div class="map-placeholder"><div>📍</div><strong>Lokasi TOSERBA Princess</strong><span>Google Maps akan ditambahkan</span></div></div></section>
-  </main>
-
-  <footer class="footer"><div class="container footer-grid"><div><a class="brand footer-brand" href="#home"><span class="brand-crown">♛</span><span><strong>TOSERBA</strong><b>PRINCESS</b></span></a><p>Semua kebutuhan,<br>dalam satu tempat.</p></div><div><h4>Menu</h4><a href="#home">Beranda</a><a href="#shop">Toserba</a><a href="#laundry">Self Laundry</a></div><div><h4>Layanan</h4><a href="#shop">Belanja Online</a><a href="#laundry">Self Laundry</a></div><div><h4>Ikuti Kami</h4><p>Instagram · WhatsApp</p><p class="small">© 2026 TOSERBA Princess</p></div></div></footer>
-
-  <div class="cart-drawer" id="cartDrawer"><div class="drawer-head"><h3>Keranjang</h3><button onclick="closeCart()">✕</button></div><div id="cartItems" class="cart-items"></div><div class="cart-total"><span>Total</span><strong id="cartTotal">Rp0</strong></div><button class="btn btn-primary full" onclick="checkout()">Checkout</button></div><div class="overlay" id="overlay" onclick="closeCart()"></div><div class="toast" id="toast"></div>
-
-  <div class="auth-modal" id="authModal"><div class="auth-card"><button class="auth-close" onclick="closeAuth()">✕</button><span class="eyebrow">AKUN PELANGGAN</span><h2 id="authTitle">Masuk ke TOSERBA Princess</h2><p id="authSubtitle">Masuk untuk menyimpan keranjangmu.</p><input id="authEmail" type="email" placeholder="Email" autocomplete="email"><input id="authPassword" type="password" placeholder="Password" autocomplete="current-password"><button class="btn btn-primary full" id="authSubmit" onclick="submitAuth()">Masuk</button><button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Belum punya akun? Daftar</button><p class="auth-note">Akun digunakan hanya untuk fitur login dan menyimpan keranjang.</p></div></div>
-
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-database-compat.js"></script>
-  <script>
-    const firebaseConfig={apiKey:"AIzaSyB5-XUG2Mq6cD7YtgoHBtPewx3V-KUtzE4",authDomain:"toserba-princess.firebaseapp.com",databaseURL:"https://toserba-princess-default-rtdb.firebaseio.com",projectId:"toserba-princess",storageBucket:"toserba-princess.firebasestorage.app",messagingSenderId:"301864881702",appId:"1:301864881702:web:8ab7e141f00741bd5920e7",measurementId:"G-RM9NLHDCBW"};
-    firebase.initializeApp(firebaseConfig);
-    window.firebaseAuth=firebase.auth();
-    window.firebaseDb=firebase.database();
-  </script>
-  <script src="script.js"></script>
-</body>
-</html>
+<header class="header"><div class="container nav-wrap"><a class="brand" href="#home"><span class="brand-crown">♛</span><span><strong>TOSERBA</strong><b>PRINCESS</b></span></a><nav class="nav" id="nav"><a href="#home">Beranda</a><a href="#shop">Toserba</a><a href="#laundry">Self Laundry</a><a href="#about">Tentang Kami</a><a href="#contact">Kontak</a></nav><button class="account-button" id="accountButton" onclick="openAuth()">👤 Masuk</button><button class="cart-button" onclick="openCart()">🛒 <span id="cartCount">0</span></button><button class="menu-button" onclick="toggleMenu()">☰</button></div></header>
+<main><section class="hero" id="home"><div class="container hero-grid"><div class="hero-copy"><span class="eyebrow">👑 TOSERBA PRINCESS</span><h1>Semua Kebutuhan,<br><span>Dalam Satu Tempat.</span></h1><p>Kebutuhan sehari-hari, makanan, minuman, dan Self Laundry praktis untuk Anda dan keluarga.</p><div class="hero-actions"><a class="btn btn-primary" href="#shop">🛒 Belanja Sekarang</a><a class="btn btn-outline" href="#laundry">🧺 Self Laundry</a></div><div class="trust-row"><span>✓ Harga terjangkau</span><span>✓ Praktis</span><span>✓ Dekat dengan Anda</span></div></div><div class="hero-art"><div class="glow"></div><div class="basket">🛍️</div><div class="product-float p1">☕</div><div class="product-float p2">🥤</div><div class="product-float p3">🍜</div><div class="washer">🧺</div></div></div></section>
+<section class="services section"><div class="container"><div class="section-head center"><span class="eyebrow">LAYANAN KAMI</span><h2>Praktis untuk kebutuhan sehari-hari</h2></div><div class="service-grid"><a class="service-card purple" href="#shop"><div class="service-icon">🛒</div><div><h3>Toserba</h3><p>Belanja kebutuhan sehari-hari dengan mudah.</p><span>Lihat Produk →</span></div></a><a class="service-card pink" href="#laundry"><div class="service-icon">🧺</div><div><h3>Self Laundry</h3><p>Cuci sendiri dengan mudah, praktis, dan hemat.</p><span>Lihat Layanan →</span></div></a></div></div></section>
+<section class="shop section" id="shop"><div class="container"><div class="section-head"><div><span class="eyebrow">TOKO ONLINE</span><h2>Belanja kebutuhanmu</h2></div><div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Cari produk..." oninput="renderProducts()"></div></div><div class="categories" id="categories"></div><div class="product-grid" id="productGrid"></div></div></section>
+<section class="laundry section" id="laundry"><div class="container"><div class="laundry-panel"><div class="laundry-copy"><span class="eyebrow">SELF LAUNDRY</span><h2>Cuci sendiri,<br><span>lebih praktis.</span></h2><p>Pantau ketersediaan mesin dan waktu penggunaan. Fitur timer real-time dapat dikembangkan pada tahap berikutnya.</p><div class="laundry-price"><span>Mulai dari</span><strong>Rp5.000</strong></div><button class="btn btn-primary" onclick="showLaundryInfo()">Lihat Cara Penggunaan</button></div><div class="machines"><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 01</strong><span>● Tersedia</span></div><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 02</strong><span>● Tersedia</span></div><div class="machine-card busy"><div class="machine-icon">🧺</div><strong>Mesin 03</strong><span>● Digunakan</span><b>24:35</b></div><div class="machine-card available"><div class="machine-icon">🧺</div><strong>Mesin 04</strong><span>● Tersedia</span></div></div></div></div></section>
+<section class="about section" id="about"><div class="container about-grid"><div class="about-image"><span>👑</span><strong>TOSERBA<br><b>PRINCESS</b></strong></div><div><span class="eyebrow">TENTANG KAMI</span><h2>Kebutuhan dekat,<br><span>hidup lebih praktis.</span></h2><p>TOSERBA Princess hadir untuk memenuhi berbagai kebutuhan sehari-hari masyarakat sekitar. Kami menyediakan pilihan produk seperti kopi, mie, minuman, sembako, bahan masakan, dan kebutuhan rumah tangga.</p><p>Selain itu, tersedia layanan <strong>Self Laundry</strong> yang praktis dan mudah digunakan.</p><div class="about-points"><span>🛍️ Produk beragam</span><span>💰 Harga terjangkau</span><span>❤️ Pelayanan ramah</span></div></div></div></section>
+<section class="contact section" id="contact"><div class="container contact-card"><div><span class="eyebrow">KONTAK KAMI</span><h2>Yuk, mampir ke TOSERBA Princess</h2><p>Untuk informasi produk, Self Laundry, atau pemesanan, hubungi kami melalui kontak yang tersedia.</p><div class="contact-list"><span>📍 Alamat toko akan diisi di sini</span><span>📞 Nomor Telepon akan diisi di sini</span><span>💬 WhatsApp akan diisi di sini</span></div></div><div class="map-placeholder"><div>📍</div><strong>Lokasi TOSERBA Princess</strong><span>Google Maps akan ditambahkan</span></div></div></section></main>
+<footer class="footer"><div class="container footer-grid"><div><a class="brand footer-brand" href="#home"><span class="brand-crown">♛</span><span><strong>TOSERBA</strong><b>PRINCESS</b></span></a><p>Semua kebutuhan,<br>dalam satu tempat.</p></div><div><h4>Menu</h4><a href="#home">Beranda</a><a href="#shop">Toserba</a><a href="#laundry">Self Laundry</a></div><div><h4>Layanan</h4><a href="#shop">Belanja Online</a><a href="#laundry">Self Laundry</a></div><div><h4>Kontak</h4><p>WhatsApp · Telepon</p><p class="small">© 2026 TOSERBA Princess</p></div></div></footer>
+<div class="cart-drawer" id="cartDrawer"><div class="drawer-head"><h3>Keranjang</h3><button onclick="closeCart()">✕</button></div><div id="cartItems" class="cart-items"></div><div class="cart-total"><span>Total</span><strong id="cartTotal">Rp0</strong></div><button class="btn btn-primary full" onclick="checkout()">Checkout</button></div><div class="overlay" id="overlay" onclick="closeCart()"></div><div class="toast" id="toast"></div>
+<div class="auth-modal" id="authModal"><div class="auth-card"><button class="auth-close" onclick="closeAuth()">✕</button><span class="eyebrow">AKUN TOSERBA PRINCESS</span><h2 id="authTitle">Masuk</h2><p id="authSubtitle">Masuk untuk menyimpan keranjangmu.</p><div id="registerFields" hidden><input id="authName" type="text" placeholder="Nama lengkap" autocomplete="name"><input id="authWhatsapp" type="tel" placeholder="No. WhatsApp" autocomplete="tel"><input id="authPhone" type="tel" placeholder="No. Telepon (boleh berbeda)" autocomplete="tel"><textarea id="authAddress" placeholder="Alamat lengkap" rows="3"></textarea></div><input id="authEmail" type="email" placeholder="Email" autocomplete="email"><input id="authPassword" type="password" placeholder="Password minimal 6 karakter" autocomplete="new-password"><button class="btn btn-primary full" id="authSubmit" onclick="submitAuth()">Masuk</button><button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Belum punya akun? Daftar</button><p class="auth-note">Setelah daftar, email akan diminta untuk diverifikasi. OTP WhatsApp akan kita sambungkan setelah layanan WhatsApp Business siap.</p></div></div>
+<script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-database-compat.js"></script><script>const firebaseConfig={apiKey:"AIzaSyB5-XUG2Mq6cD7YtgoHBtPewx3V-KUtzE4",authDomain:"toserba-princess.firebaseapp.com",databaseURL:"https://toserba-princess-default-rtdb.firebaseio.com",projectId:"toserba-princess",storageBucket:"toserba-princess.firebasestorage.app",messagingSenderId:"301864881702",appId:"1:301864881702:web:8ab7e141f00741bd5920e7",measurementId:"G-RM9NLHDCBW"};firebase.initializeApp(firebaseConfig);window.firebaseAuth=firebase.auth();window.firebaseDb=firebase.database();</script><script src="script.js?v=5"></script></body></html>
