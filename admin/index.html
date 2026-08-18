@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=4">
+  <link rel="stylesheet" href="admin.css?v=5">
 </head>
 <body>
   <div id="loginView" class="login-view" style="display:grid">
@@ -62,12 +62,10 @@
       measurementId: "G-RM9NLHDCBW"
     };
 
-    const firebaseApp = firebase.initializeApp(firebaseConfig);
-    const firebaseAuth = firebaseApp.auth();
-    const firebaseDb = firebaseApp.database();
-    window.firebaseAuth = firebaseAuth;
-    window.firebaseDb = firebaseDb;
+    firebase.initializeApp(firebaseConfig);
+    window.firebaseAuth = firebase.auth();
+    window.firebaseDb = firebase.database();
   </script>
-  <script src="admin.js?v=7"></script>
+  <script src="admin.js?v=8"></script>
 </body>
 </html>
