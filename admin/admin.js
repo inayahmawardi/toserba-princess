@@ -1,7 +1,4 @@
-const firebaseAuth = window.firebaseAuth;
-const firebaseDb = window.firebaseDb;
-
-if (!firebaseAuth || !firebaseDb) {
+if (!window.firebaseAuth || !window.firebaseDb) {
   console.error('Firebase Auth/Database belum tersedia.');
 }
 
@@ -40,6 +37,8 @@ function setView(loggedIn, user) {
 }
 
 async function checkAdminRole(user) {
+  const firebaseAuth = window.firebaseAuth;
+  const firebaseDb = window.firebaseDb;
   if (!user || !firebaseAuth || !firebaseDb) return false;
   try {
     await user.reload();
@@ -54,6 +53,7 @@ async function checkAdminRole(user) {
 }
 
 window.adminLogin = async function adminLogin() {
+  const firebaseAuth = window.firebaseAuth;
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   if (!email || !password) return msg('Isi email dan password.');
@@ -87,6 +87,7 @@ function msg(text) {
 }
 
 window.adminLogout = async function adminLogout() {
+  const firebaseAuth = window.firebaseAuth;
   if (firebaseAuth) await firebaseAuth.signOut();
   setView(false);
 };
@@ -114,6 +115,7 @@ window.addProduct = function addProduct() {
 
 setView(false);
 
+const firebaseAuth = window.firebaseAuth;
 if (firebaseAuth) {
   firebaseAuth.onAuthStateChanged(async user => {
     if (roleCheckInProgress) return;
