@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=5">
+  <link rel="stylesheet" href="admin.css?v=4">
 </head>
 <body>
   <div id="loginView" class="login-view" style="display:grid">
@@ -46,15 +46,15 @@
       <section id="laundry" class="section"><div class="panel"><div class="panel-head"><div><span class="eyebrow">SELF LAUNDRY</span><h3>Status Mesin</h3></div></div><div class="machine-grid"><div class="machine available">🧺<b>Mesin 01</b><span>Tersedia</span></div><div class="machine available">🧺<b>Mesin 02</b><span>Tersedia</span></div><div class="machine busy">🧺<b>Mesin 03</b><span>Digunakan</span></div><div class="machine available">🧺<b>Mesin 04</b><span>Tersedia</span></div></div></div></section>
     </main>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.16.0/firebase-database-compat.js"></script>
   <script>
     const firebaseConfig={apiKey:"AIzaSyB5-XUG2Mq6cD7YtgoHBtPewx3V-KUtzE4",authDomain:"toserba-princess.firebaseapp.com",databaseURL:"https://toserba-princess-default-rtdb.firebaseio.com",projectId:"toserba-princess",storageBucket:"toserba-princess.firebasestorage.app",messagingSenderId:"301864881702",appId:"1:301864881702:web:8ab7e141f00741bd5920e7",measurementId:"G-RM9NLHDCBW"};
-    firebase.initializeApp(firebaseConfig);
-    window.firebaseAuth = firebase.auth();
-    window.firebaseDb = firebase.database();
+    const firebaseApp=firebase.initializeApp(firebaseConfig);
+    window.firebaseAuth=firebaseApp.auth();
+    window.firebaseDb=firebaseApp.database();
   </script>
-  <script src="admin.js?v=5"></script>
+  <script src="admin.js?v=6"></script>
 </body>
 </html>
