@@ -53,7 +53,7 @@ async function checkAdminRole(user) {
   }
 }
 
-async function adminLogin() {
+window.adminLogin = async function adminLogin() {
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   if (!email || !password) return msg('Isi email dan password.');
@@ -79,38 +79,38 @@ async function adminLogin() {
     msg(e.code === 'auth/invalid-credential' ? 'Email atau password salah.' : (e.message || 'Login gagal.'));
     setView(false);
   }
-}
+};
 
 function msg(text) {
   const el = document.getElementById('loginMessage');
   if (el) el.textContent = text;
 }
 
-async function adminLogout() {
+window.adminLogout = async function adminLogout() {
   if (firebaseAuth) await firebaseAuth.signOut();
   setView(false);
-}
+};
 
-function showSection(id, button) {
+window.showSection = function showSection(id, button) {
   document.querySelectorAll('.section').forEach(x => x.classList.remove('active-section'));
   document.getElementById(id).classList.add('active-section');
   document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
   button.classList.add('active');
   const names = {dashboard:'Dashboard',products:'Kelola Produk',orders:'Pesanan',users:'Pengguna',laundry:'Self Laundry'};
   document.getElementById('pageTitle').textContent = names[id] || 'Admin';
-}
+};
 
 function renderProducts() {
   const count = document.getElementById('productCount');
   const list = document.getElementById('productList');
   if (count) count.textContent = products.length;
   if (!list) return;
-  list.innerHTML = products.map(p => `<div class="product-row"><div><b>${p.name}</b><br><small>${p.category} · ${rupiah(p.price)}</small></div><button onclick="alert('Form edit produk akan ditambahkan pada tahap berikutnya.')">Edit</button></div>`).join('');
+  list.innerHTML = products.map(p => `<div class="product-row"><div><b>${p.name}</b><br><small>${p.category} · ${rupiah(p.price)}</small></div><button type="button" onclick="alert('Form edit produk akan ditambahkan pada tahap berikutnya.')">Edit</button></div>`).join('');
 }
 
-function addProduct() {
+window.addProduct = function addProduct() {
   alert('Form tambah produk akan kita sambungkan ke Firebase Database setelah struktur admin selesai.');
-}
+};
 
 setView(false);
 
