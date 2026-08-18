@@ -1,3 +1,8 @@
+const firebaseConfig={apiKey:"AIzaSyB5-XUG2Mq6cD7YtgoHBtPewx3V-KUtzE4",authDomain:"toserba-princess.firebaseapp.com",databaseURL:"https://toserba-princess-default-rtdb.firebaseio.com",projectId:"toserba-princess",storageBucket:"toserba-princess.firebasestorage.app",messagingSenderId:"301864881702",appId:"1:301864881702:web:8ab7e141f00741bd5920e7",measurementId:"G-RM9NLHDCBW"};
+if(typeof firebase==='undefined'){throw new Error('Firebase SDK gagal dimuat.');}
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const firebaseAuth=firebase.auth();
+const firebaseDb=firebase.database();
 const products=[{id:1,name:'Kapal Api Mix 23g',category:'Kopi',price:2000},{id:2,name:'Luwak White Coffee',category:'Kopi',price:2000},{id:3,name:'Indocoffee',category:'Kopi',price:2000},{id:5,name:'Indomie Soto / Ayam Bawang',category:'Mie',price:3500},{id:6,name:'Indomie Goreng',category:'Mie',price:4000},{id:15,name:'Coca-Cola Zero Sugar',category:'Minuman',price:6000},{id:22,name:'Telur Negeri Curah',category:'Sembako',price:26000},{id:27,name:'Gula Curah',category:'Sembako',price:20000},{id:31,name:'Minyak Kita 1L',category:'Sembako',price:23000},{id:32,name:'Beras',category:'Sembako',price:15000}];
 const rupiah=n=>'Rp'+Number(n).toLocaleString('id-ID');
 let roleCheckInProgress=false;
